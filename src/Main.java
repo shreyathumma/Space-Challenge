@@ -14,8 +14,8 @@ public class Main {
 		Simulation simulation = new Simulation();
 		
 		//to store Item objects in each phase
-		ArrayList<Item> Phase1ArrayList = new ArrayList<Item>();
-		ArrayList<Item> Phase2ArrayList = new ArrayList<Item>();
+		ArrayList<Item> Phase1ItemArrayList = new ArrayList<Item>();
+		ArrayList<Item> Phase2ItemArrayList = new ArrayList<Item>();
 		
 		//to store rocket objects for both U1 and U2 in each phase
 		ArrayList<Rocket> U1_Phase1_ArrayList = new ArrayList<Rocket>();
@@ -31,32 +31,41 @@ public class Main {
 		File Phase2_file = new File("C:/Users/shreya thumma/workspace/Space Challenge/Phase2.txt");
 		
 		System.out.println("Loading items from Phase 1 and Phase 2 files");
-		Phase1ArrayList = simulation.loadItems(Phase1_file);
-		Phase2ArrayList = simulation.loadItems(Phase2_file);
+		Phase1ItemArrayList = simulation.loadItems(Phase1_file);
+		Phase2ItemArrayList = simulation.loadItems(Phase2_file);
 		
 		System.out.println("Loading U1 rockets with Phase 1 and Phase 2 Items");
-		U1_Phase1_ArrayList = simulation.loadU1(Phase1ArrayList);
-		U1_Phase2_ArrayList = simulation.loadU1(Phase2ArrayList);
+		U1_Phase1_ArrayList = simulation.loadU1(Phase1ItemArrayList);
+		U1_Phase2_ArrayList = simulation.loadU1(Phase2ItemArrayList);
+		
+		System.out.println("Loading U2 rockets with Phase 1 and Phase 2 Items");
+		U2_Phase1_ArrayList = simulation.loadU2(Phase1ItemArrayList);
+		U2_Phase2_ArrayList = simulation.loadU2(Phase2ItemArrayList);
 		
 		System.out.println("Running simulation for U1");
 		U1Num_times = simulation.runSimulation(U1_Phase1_ArrayList);
 		U1Num_times2 = simulation.runSimulation(U1_Phase2_ArrayList);
 		int U1Total_trials = U1Num_times + U1Num_times2;
+		System.out.println("Total number of trials " + U1Total_trials);
 		
 		U1.setNumberTrials(U1Total_trials);
-		System.out.println("Total number of trials " + (U1Num_times + U1Num_times2));
+		
 		
 	    int U1_totalCost = U1.getTotalCost();
-	    System.out.println("U1 Total Cost " + U1_totalCost);
+	    System.out.println("U1 Total Cost in millions" + U1_totalCost);
 	    
+	    System.out.println("Running simulation for U2");
 	    U2Num_times = simulation.runSimulation(U2_Phase1_ArrayList);
-	    System.out.println("Number of times U1 is launched and landed: " + U2Num_times);
 		U2Num_times2 = simulation.runSimulation(U2_Phase2_ArrayList);
-		System.out.println("Number of times U2 is launched and landed: " + U2Num_times2);
+		int U2Total_trials = U2Num_times + U2Num_times2;
+		System.out.println("Total number of trials " + U2Total_trials);
+		
+		U2.setNumberTrials(U2Total_trials);
 		
 		int U2_totalCost = U2.getTotalCost();
-	    System.out.println("U2 Total Cost " + U2_totalCost);
+	    System.out.println("U2 Total Cost in millions " + U2_totalCost);
 		
 		
 	}
 }
+
