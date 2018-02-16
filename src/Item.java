@@ -9,16 +9,8 @@ public class Item {
 		itemWeight = weight;
 	}
 	
-	public void setItemName(String iname){
-		itemName = iname;
-	}
-	
 	public String getItemName(){
 		return itemName;
-	}
-	
-	public void setItemWeight(int iweight){
-		itemWeight = iweight;
 	}
 	
 	public int getItemWeight(){
