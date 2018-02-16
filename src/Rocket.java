@@ -1,11 +1,13 @@
 
+
 public class Rocket implements Spaceship {
 
 	private int rocketWeight;
 	private int maxRocketWeight;
 	private int maxCargo;
 	private int currentWeight;
-	private int totalCargoWeight;
+	private int totalWeight;
+	
 	
 	public boolean launch(){
 		return true;
@@ -15,21 +17,6 @@ public class Rocket implements Spaceship {
 		return true;
 	}
 	
-	public void setTotalCargoWeight(Item itemobject){
-		totalCargoWeight += itemobject.getItemWeight();
-	}
-	
-	public int getTotalCargoWeight(){
-		return totalCargoWeight;
-	}
-
-	public void setCurrentWeight(Item itemobject){
-		currentWeight = rocketWeight + itemobject.getItemWeight();
-	}
-	
-	public int getCurrentWeight(){
-		return currentWeight;
-	}
 	
 	public boolean canCarry(Item itemobject){
 		
@@ -41,8 +28,18 @@ public class Rocket implements Spaceship {
 		}
 	}
 	
+	public void setCurrentWeight(Item itemobject){
+		currentWeight += itemobject.getItemWeight();
+	}
+	
+	public int getCurrentWeight(){
+		return currentWeight;
+	}
+
+	public int getTotalWeight(){
+		return totalWeight = rocketWeight + getCurrentWeight();
+	}
 	public void carry(Item itemobject){
 		setCurrentWeight(itemobject);
-		setTotalCargoWeight(itemobject);
 	}
 }
