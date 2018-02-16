@@ -1,10 +1,13 @@
 
+
 public class U1 extends Rocket {
 	
 	private static final int ROCKETCOST_INMILLIONS = 100;
-	private final int ROCKETWEIGHT = 10;
-	private final int MAXCARGO = 8;
-	private final int MAXROCKETWEIGHT = 18;
+	private final int ROCKETWEIGHT = 10000;
+	private final int MAXCARGO = 8000;
+	private final int MAXROCKETWEIGHT = 18000;
+	private int currentWeight;
+	private int totalWeight;
 	
 	private double launch_explosion;
 	private double landing_crash;
@@ -13,7 +16,7 @@ public class U1 extends Rocket {
 
 	public boolean launch(){
 		
-		launch_explosion = 0.05 * ( getTotalCargoWeight()/ MAXCARGO);
+		launch_explosion = 0.05 * ( getCurrentWeight()/ MAXCARGO);
 		double random_number = Math.random();
 				if(launch_explosion <= random_number){
 					return true;
@@ -26,7 +29,7 @@ public class U1 extends Rocket {
 	
 	public boolean land(){
 		
-		landing_crash = 0.01 * (getTotalCargoWeight() / MAXCARGO);
+		landing_crash = 0.01 * (getCurrentWeight() / MAXCARGO);
 		double random_number = Math.random();
 		if(landing_crash <= random_number){
 			return true;
@@ -36,21 +39,24 @@ public class U1 extends Rocket {
 			return false;
 		}
 	}
+
+	//Overrided method
+	public int getTotalWeight(){
+		return totalWeight = ROCKETWEIGHT + getCurrentWeight();
+	}
 	
 	public boolean canCarry(Item itemobject){
-		
-		if(getCurrentWeight() <= MAXROCKETWEIGHT){
+		if(getCurrentWeight() <= MAXCARGO && getTotalWeight() <= MAXROCKETWEIGHT){
 			return true;
 		}
 		else{
-			System.out.println("Overload");
+			System.out.println("Overloaded U1");
 			return false;
 		}
 	}
 	
 	public void carry(Item itemobject){
 		setCurrentWeight(itemobject);
-		setTotalCargoWeight(itemobject);
 	}
 	
 	public static void setNumberTrials(int trials){
@@ -65,3 +71,4 @@ public class U1 extends Rocket {
 		return ROCKETCOST_INMILLIONS * getNumberTrials();
 	}
 }
+
