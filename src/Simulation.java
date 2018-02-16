@@ -1,6 +1,8 @@
 import java.io.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.ListIterator;
 
 public class Simulation {
 
@@ -21,6 +23,7 @@ public class Simulation {
 		
 		//Reading the file while there are lines to read
 		String line = null;
+		
 		while((line = bufferedreader.readLine()) != null){
 			
 			//splitting the line into two parts: before and after equalsto(item name, weight)
@@ -34,12 +37,16 @@ public class Simulation {
 		    	else{
 		    		item_name = splitPart;
 		    	}
+		    }
 			//Creating Item objects and adding them to the itemArrayList
 		    Item itemObject_U1 = new Item(item_name, item_weight);
 			itemArrayList.add(itemObject_U1);
-		    } 
 		}
 		bufferedreader.close();	
+		for(Item itemobj : itemArrayList){
+			System.out.println(itemobj.getItemName());
+			System.out.println(itemobj.getItemWeight());
+		}
 		return itemArrayList; //returns the itemArrayList containing all Item objects
 	}
 	
@@ -49,62 +56,80 @@ public class Simulation {
 		//U1ArrayList stores all the U1 rocket objects after they are loaded
 		ArrayList <Rocket> U1ArrayList = new ArrayList<Rocket>();
 		
+		//Iterator to iterate through ArrayList of Items
+		Iterator <Item> iterator = items.iterator();
+		
 		//Creating U1 object
 		Rocket U1Rocket = new U1();
-		while(items.size() != 0){
-			
-			for(Item itemobj : items){
-				if(U1Rocket.canCarry(itemobj)){
-					U1Rocket.carry(itemobj);
-				}
-				else{
-					U1ArrayList.add(U1Rocket);
-					U1Rocket = new U1();
-					U1Rocket.carry(itemobj);
-				}
+				while(iterator.hasNext()){
+					Item itemobj;
+					itemobj = iterator.next();
+					if(U1Rocket.canCarry(itemobj)){
+						U1Rocket.carry(itemobj);
+						System.out.println("U1 Loaded with " + itemobj.getItemName());
+						System.out.println("Weight of item: " + itemobj.getItemWeight());
+						System.out.println("Current cargo carried: " + U1Rocket.getCurrentWeight());
+						System.out.println("Current weight of the whole rocket: " + U1Rocket.getTotalWeight());
+					}
+					else {
+		                U1ArrayList.add(U1Rocket);
+		                U1Rocket = new U1();
+		                System.out.println("New rocket created");
+		                U1Rocket.carry(itemobj);
+		            }
+					if(!iterator.hasNext()){
+						U1ArrayList.add(U1Rocket);
+					}
 		}
-		}
-		U1ArrayList.add(U1Rocket);
-		System.out.println("U1 Loaded");
-		return U1ArrayList;
-		
+			System.out.println("U1 Loaded");
+			return U1ArrayList;
 	}
-	
-	//Method to load the items to U1 rockets
-	public ArrayList<Rocket> loadU2(ArrayList<Item> items){
+
+	//Method to load the items to U2 rockets
+     public ArrayList<Rocket> loadU2(ArrayList<Item> items){
 		
-		//U2ArrayList stores all the U1 rocket objects after they are loaded
+		//U1ArrayList stores all the U1 rocket objects after they are loaded
 		ArrayList <Rocket> U2ArrayList = new ArrayList<Rocket>();
 		
-		Rocket U2Rocket = new U2();
-		while(items.size() != 0){
-			
-			for(Item itemobj : items){
-				if(U2Rocket.canCarry(itemobj)){
-					U2Rocket.carry(itemobj);
-				}
-				else{
-					U2ArrayList.add(U2Rocket);
-					U2Rocket = new U2();
-					U2Rocket.carry(itemobj);
-				}
-		}
-		}
-		U2ArrayList.add(U2Rocket);
-		System.out.println("U2 Loaded");
-		return U2ArrayList;
+		//Iterator to iterate through ArrayList of Items
+		Iterator <Item> iterator = items.iterator();
 		
+		//Creating U1 object
+		Rocket U2Rocket = new U2();
+				while(iterator.hasNext()){
+					Item itemobj;
+					itemobj = iterator.next();
+					if(U2Rocket.canCarry(itemobj)){
+						U2Rocket.carry(itemobj);
+						System.out.println("U2 Loaded with " + itemobj.getItemName());
+						System.out.println("Weight of item: " + itemobj.getItemWeight());
+						System.out.println("Current cargo carried: " + U2Rocket.getCurrentWeight());
+						System.out.println("Current weight of the whole rocket: " + U2Rocket.getTotalWeight());
+					}
+					else {
+		                U2ArrayList.add(U2Rocket);
+		                U2Rocket = new U2();
+		                System.out.println("New rocket created");
+		                U2Rocket.carry(itemobj);
+		            }
+					if(!iterator.hasNext()){
+						U2ArrayList.add(U2Rocket);
+					}
+		}
+			System.out.println("U2 Loaded");
+			return U2ArrayList;
 	}
 	
 	public int runSimulation(ArrayList<Rocket> rockets){
 
 		int num_trials = 0;
 		for(Rocket rocket : rockets){
-			while(!rocket.launch()){
-				System.out.println("Launching rocket");
-				rocket.launch();
+			    while(!rocket.launch()){
+			    	System.out.println("Launching again");
+			    	rocket.launch();
 				num_trials++;
-			}
+			    }
+			    
 			while(!rocket.land()){
 				while(!rocket.launch()){
 					System.out.println("Launching again");
@@ -121,3 +146,4 @@ public class Simulation {
 	
 	
 }
+
