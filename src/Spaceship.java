@@ -5,7 +5,7 @@ public interface Spaceship {
 	
 	public boolean land();
 	
-	public boolean canCarry (Item itemobject);
+	public boolean canCarry (Item item);
 	
-	public void carry(Item itemobject);
+	public void carry(Item item);
 }
