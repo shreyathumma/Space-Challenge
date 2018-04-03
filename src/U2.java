@@ -1,73 +1,74 @@
 
-public class U2 extends Rocket {
-
-	private static final int ROCKETCOST_INMILLIONS = 120;
-	private final int ROCKETWEIGHT = 18000;
-	private final int MAXCARGO = 11000;
-	private final int MAXROCKETWEIGHT = 29000;
-	private int currentWeight;
-	private int totalWeight;
+public class UTwo extends Rocket {
 
 	private double launch_explosion;
 	private double landing_crash;
 	
 	private static int num_trials;
+	
+	UTwo(){
+		setRocketCost(120);
+		setRocketWeight(18000);
+		setMaxRocketWeight(29000);
+		setMaxCargo();
+		
+	}
+	
+	//Method to check if the rocket launched
+		public boolean launch(){
+			
+			launch_explosion = 0.04 * (getCargoWeight()/ getMaxCargo());
+			 double random_number = Math.random();
+					if(launch_explosion <= random_number){
+						return true;
+					}
+					else{
+						System.out.println("Exploded!!");
+						return false;
+					}
+		}
+		
+		//Method to check if rocket landed
+		public boolean land(){
+			
+			landing_crash = 0.08 * (getCargoWeight() / getMaxCargo());
+			double random_number = Math.random();
+			if(landing_crash <= random_number){
+				return true;
+			}
+			else{
+				System.out.println("Crashed!!");
+				return false;
+			}
+		}
 
-	public boolean launch(){
-		
-		launch_explosion = 0.04 * ( getCurrentWeight()/ MAXCARGO);
-		double random_number = Math.random();
-				if(launch_explosion <= random_number){
-					return true;
-				}
-				else{
-					System.out.println("Exploded!!");
-					return false;
-				}
-	}
-	
-	public boolean land(){
-		
-		landing_crash = 0.08 * (getCurrentWeight() / MAXCARGO);
-		double random_number = Math.random();
-		if(landing_crash <= random_number){
-			return true;
-		}
-		else{
-			System.out.println("Crashed!!");
-			return false;
-		}
-	}
-	//Overrided method
-		public int getTotalWeight(){
-			return totalWeight = ROCKETWEIGHT + getCurrentWeight();
+		//Method to check if rocket can carry an Item
+		public boolean canCarry(Item item){
+			if(getCargoWeight() <= getMaxCargo() && getTotalWeight() <= getMaxRocketWeight()){
+				return true;
+			}
+			else{
+				System.out.println("Cannot carry next item");
+				return false;
+			}
 		}
 		
-	public boolean canCarry(Item itemobject){
-		if(getCurrentWeight() <= MAXCARGO && getTotalWeight() <= MAXROCKETWEIGHT){
-			return true;
+		//Method to load item into the Rocket and update cargo weight
+		public void carry(Item item){
+			setCargoWeight(item);
 		}
-		else{
-			System.out.println("Overloaded U2");
-			return false;
+		
+		public static void setNumberTrials(){
+			num_trials++;
 		}
-	}
-	
-	public void carry(Item itemobject){
-		setCurrentWeight(itemobject);
-	}
-	
-	public static void setNumberTrials(int trials){
-		num_trials = trials;
-	}
-	
-	public static int getNumberTrials(){
-		return num_trials;
-	}
-	
-	public static int getTotalCost(){
-		return ROCKETCOST_INMILLIONS * getNumberTrials();
-	}
+		
+		public static int getNumberTrials(){
+			return num_trials;
+		}
+		
+		public int getTotalCost(){
+			return getRocketCost() * getNumberTrials();
+		}
 	
 }
 
