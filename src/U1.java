@@ -1,23 +1,23 @@
-
-
-public class U1 extends Rocket {
-	
-	private static final int ROCKETCOST_INMILLIONS = 100;
-	private final int ROCKETWEIGHT = 10000;
-	private final int MAXCARGO = 8000;
-	private final int MAXROCKETWEIGHT = 18000;
-	private int currentWeight;
-	private int totalWeight;
+public class UOne extends Rocket {
 	
 	private double launch_explosion;
 	private double landing_crash;
 	
 	private static int num_trials;
 
+	//Constructor
+	UOne(){
+		setRocketCost(100);
+		setRocketWeight(10000);
+		setMaxRocketWeight(18000);
+		setMaxCargo();
+	}
+	
+	//Method to check if the rocket launched
 	public boolean launch(){
 		
-		launch_explosion = 0.05 * ( getCurrentWeight()/ MAXCARGO);
-		double random_number = Math.random();
+		launch_explosion = 0.05 * (getCargoWeight()/ getMaxCargo());
+		 double random_number = Math.random();
 				if(launch_explosion <= random_number){
 					return true;
 				}
@@ -27,9 +27,10 @@ public class U1 extends Rocket {
 				}
 	}
 	
+	//Method to check if rocket landed
 	public boolean land(){
 		
-		landing_crash = 0.01 * (getCurrentWeight() / MAXCARGO);
+		landing_crash = 0.01 * (getCargoWeight() / getMaxCargo());
 		double random_number = Math.random();
 		if(landing_crash <= random_number){
 			return true;
@@ -40,35 +41,31 @@ public class U1 extends Rocket {
 		}
 	}
 
-	//Overrided method
-	public int getTotalWeight(){
-		return totalWeight = ROCKETWEIGHT + getCurrentWeight();
-	}
-	
-	public boolean canCarry(Item itemobject){
-		if(getCurrentWeight() <= MAXCARGO && getTotalWeight() <= MAXROCKETWEIGHT){
+	//Method to check if rocket can carry an Item
+	public boolean canCarry(Item item){
+		if(getCargoWeight() + getTotalWeight() <= getMaxRocketWeight()){
 			return true;
 		}
 		else{
-			System.out.println("Overloaded U1");
+			System.out.println("Cannot carry next item");
 			return false;
 		}
 	}
 	
-	public void carry(Item itemobject){
-		setCurrentWeight(itemobject);
+	//Method to load item into the Rocket and update cargo weight
+	public void carry(Item item){
+		setCargoWeight(item);
 	}
-	
-	public static void setNumberTrials(int trials){
-		num_trials = trials;
+
+	public static void setNumberTrials(){
+		num_trials++;
 	}
 	
 	public static int getNumberTrials(){
 		return num_trials;
 	}
 	
-	public static int getTotalCost(){
-		return ROCKETCOST_INMILLIONS * getNumberTrials();
+	public int getTotalCost(){
+		return getRocketCost() * getNumberTrials();
 	}
 }
-
