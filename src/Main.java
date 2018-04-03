@@ -47,13 +47,24 @@ public class SpaceMission {
 		System.out.println("Running simulation for UOne rockets");
 		int trials = simulation.runSimulation(phase1UOneRockets);
 		int trials2 = simulation.runSimulation(phase2UOneRockets);
-		System.out.println("Total number of UOne Rocket used for the mission: " + (trials+trials2));
+		System.out.println("Total number of UOne Rockets used for the mission: " + (trials+trials2));
+		System.out.println(" ");
 		
 		System.out.println("Running simulation for UTwo rockets");
 		int trials3 = simulation.runSimulation(phase1UTwoRockets);
 		int trials4 = simulation.runSimulation(phase2UTwoRockets);
-		System.out.println("Total number of UOne Rocket used for the mission: " + (trials3+trials4));
+		System.out.println("Total number of UTwo Rockets used for the mission: " + (trials3+trials4));
+		System.out.println("");
 		
+		int UOne_trials = trials+trials2;
+		int UTwo_trials = trials3+trials4;
+		if(UOne_trials < UTwo_trials){
+			System.out.println("UONE ROCKETS CHOSEN FOR THE MISSION");
+		}
+		else{
+			System.out.println("UTWO ROCKETS CHOSEN FOR THE MISSION");
+		}
 	}
 }
+
 
