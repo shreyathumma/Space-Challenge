@@ -9,8 +9,8 @@ public class SpaceMission {
 		//Simulation object
 		Simulation simulation = new Simulation();
 		
-		File phase1File = new File("C:/Users/shreya thumma/workspace/SpaceChallenge/Phase1.txt");
-		File phase2File = new File("C:/Users/shreya thumma/workspace/SpaceChallenge/Phase2.txt");
+		File phase1File = new File("Phase1.txt");
+		File phase2File = new File("Phase2.txt");
 		
 		//Load item objects of Phase 1 and Phase 2 into ArrayLists
 		ArrayList<Item> phase1Items = new ArrayList<Item>();
