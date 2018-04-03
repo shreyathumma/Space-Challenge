@@ -2,69 +2,57 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+public class SpaceMission {
 
-public class Main {
-
-	public static void main(String[] args) throws IOException{
+	public static void main(String[] args)  throws IOException {
 		
-		U1 u1rocket = new U1();
-		U2 u2rocket = new U2();
-		
-		//creating a Simulation object
+		//Simulation object
 		Simulation simulation = new Simulation();
 		
-		//to store Item objects in each phase
-		ArrayList<Item> Phase1ItemArrayList = new ArrayList<Item>();
-		ArrayList<Item> Phase2ItemArrayList = new ArrayList<Item>();
+		File phase1File = new File("C:/Users/shreya thumma/workspace/SpaceChallenge/Phase1.txt");
+		File phase2File = new File("C:/Users/shreya thumma/workspace/SpaceChallenge/Phase2.txt");
 		
-		//to store rocket objects for both U1 and U2 in each phase
-		ArrayList<Rocket> U1_Phase1_ArrayList = new ArrayList<Rocket>();
-		ArrayList<Rocket> U1_Phase2_ArrayList = new ArrayList<Rocket>();
-		ArrayList<Rocket> U2_Phase1_ArrayList = new ArrayList<Rocket>();
-		ArrayList<Rocket> U2_Phase2_ArrayList = new ArrayList<Rocket>();
+		//Load item objects of Phase 1 and Phase 2 into ArrayLists
+		ArrayList<Item> phase1Items = new ArrayList<Item>();
+		ArrayList<Item> phase2Items = new ArrayList<Item>();
 		
-		//to store number of trials in each phase for U1 and U2
-		int U1Num_times, U1Num_times2, U2Num_times;
-		int U2Num_times2;
+		System.out.println("Loading Phase 1 Items");
+		System.out.print("---------------------");
+		phase1Items = simulation.loadItems(phase1File);
 		
-		File Phase1_file = new File("C:/Users/shreya thumma/workspace/Space Challenge/Phase1.txt");
-		File Phase2_file = new File("C:/Users/shreya thumma/workspace/Space Challenge/Phase2.txt");
+		System.out.println("Loading Phase 2 Items");
+		System.out.print("---------------------");
+		phase2Items = simulation.loadItems(phase2File);
 		
-		System.out.println("Loading items from Phase 1 and Phase 2 files");
-		Phase1ItemArrayList = simulation.loadItems(Phase1_file);
-		Phase2ItemArrayList = simulation.loadItems(Phase2_file);
+		//Load rockets of UOne and UTwo ArrayList
+		ArrayList<Rocket> phase1UOneRockets = new ArrayList<Rocket>();
+		ArrayList<Rocket> phase2UOneRockets = new ArrayList<Rocket>();
 		
-		System.out.println("Loading U1 rockets with Phase 1 and Phase 2 Items");
-		U1_Phase1_ArrayList = simulation.loadU1(Phase1ItemArrayList);
-		U1_Phase2_ArrayList = simulation.loadU1(Phase2ItemArrayList);
+		System.out.println("\nLoading UOne rockets with Phase 1 Items");
+		phase1UOneRockets = simulation.loadUOne(phase1Items);
 		
-		System.out.println("Loading U2 rockets with Phase 1 and Phase 2 Items");
-		U2_Phase1_ArrayList = simulation.loadU2(Phase1ItemArrayList);
-		U2_Phase2_ArrayList = simulation.loadU2(Phase2ItemArrayList);
+		System.out.println("Loading UOne rockets with Phase 2 Items");
+		phase2UOneRockets = simulation.loadUOne(phase2Items);
 		
-		System.out.println("Running simulation for U1");
-		U1Num_times = simulation.runSimulation(U1_Phase1_ArrayList);
-		U1Num_times2 = simulation.runSimulation(U1_Phase2_ArrayList);
-		int U1Total_trials = U1Num_times + U1Num_times2;
-		System.out.println("Total number of trials " + U1Total_trials);
+		//Load rockets of UOne and UTwo ArrayList
+		ArrayList<Rocket> phase1UTwoRockets = new ArrayList<Rocket>();
+		ArrayList<Rocket> phase2UTwoRockets = new ArrayList<Rocket>();
 		
-		U1.setNumberTrials(U1Total_trials);
+		System.out.println("Loading UTwo rockets with Phase 1 Items");
+		phase1UTwoRockets = simulation.loadUTwo(phase1Items);
 		
+		System.out.println("Loading UTwo rockets with Phase 2 Items");
+		phase2UTwoRockets = simulation.loadUTwo(phase2Items);
 		
-	    int U1_totalCost = U1.getTotalCost();
-	    System.out.println("U1 Total Cost in millions" + U1_totalCost);
-	    
-	    System.out.println("Running simulation for U2");
-	    U2Num_times = simulation.runSimulation(U2_Phase1_ArrayList);
-		U2Num_times2 = simulation.runSimulation(U2_Phase2_ArrayList);
-		int U2Total_trials = U2Num_times + U2Num_times2;
-		System.out.println("Total number of trials " + U2Total_trials);
+		System.out.println("Running simulation for UOne rockets");
+		int trials = simulation.runSimulation(phase1UOneRockets);
+		int trials2 = simulation.runSimulation(phase2UOneRockets);
+		System.out.println("Total number of UOne Rocket used for the mission: " + (trials+trials2));
 		
-		U2.setNumberTrials(U2Total_trials);
-		
-		int U2_totalCost = U2.getTotalCost();
-	    System.out.println("U2 Total Cost in millions " + U2_totalCost);
-		
+		System.out.println("Running simulation for UTwo rockets");
+		int trials3 = simulation.runSimulation(phase1UTwoRockets);
+		int trials4 = simulation.runSimulation(phase2UTwoRockets);
+		System.out.println("Total number of UOne Rocket used for the mission: " + (trials3+trials4));
 		
 	}
 }
