@@ -1,19 +1,19 @@
-
 public class Item {
 
-	private String itemName;
-	private int itemWeight;
+	String Name;
+	int Weight;
 	
 	Item(String name, int weight){
-		itemName = name;
-		itemWeight = weight;
+		this.Name = name;
+		this.Weight = weight;
 	}
-	
-	public String getItemName(){
-		return itemName;
+
+	public String getName() {
+		return Name;
 	}
-	
-	public int getItemWeight(){
-		return itemWeight;
+
+	public int getWeight() {
+		return Weight;
 	}
+
 }
